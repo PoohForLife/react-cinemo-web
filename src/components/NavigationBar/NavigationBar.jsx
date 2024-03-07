@@ -1,49 +1,54 @@
-import React, { useState, useEffect } from 'react'
-import '../NavigationBar/NavigationBar.css'
-import 'boxicons'
+import React from 'react'
+import { AppBar } from '@mui/material'
+import { IconButton } from '@mui/material'
+import { Toolbar } from '@mui/material'
+import { Box } from '@mui/material'
+import { NAV, HEADER } from '../../utils/config-layout'
+import { useResponsive } from '../../utils/config-responsive'
+import { Stack } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-function NavigationBar() {
-    const [isShowMenu, setIsShowMenu] = useState(false);
-    useEffect(() => {
-        const navMenu = document.getElementById('nav-menu');
-        navMenu.style.top = isShowMenu ? "0" : "-100%"
-    }, [isShowMenu]);
+import FavPopover from '../favPopover/favPopover'
+import AccountPopover from '../accountPopover/accountPopover'
+import ic_side_menu from '../../assets/ic_side_menu.png'
 
+function NavigationBar({ openSideBar }) {
 
-    const navLink = document.querySelectorAll('.nav__link')
-    navLink.forEach(n => n.addEventListener('click', linkAction))
-    function linkAction(){
-        setIsShowMenu(false);
-    }
+    const theme = useTheme();
+    const upLg = useResponsive('up', 'lg');
+    const renderContent = (
+        <>
+            {!upLg && (
+                <IconButton onClick={openSideBar} sx={{ mr: 1 }}>
+                    <Box component="img" alt="side_menu" src={ic_side_menu} sx={{ width: 24, height: 24 }} />
+                </IconButton>
+            )}
+            
+            <Box sx={{ flexGrow: 1 }} />
+            <Stack spacing={2} display='flex' direction='row'>
+                <FavPopover />
+                <AccountPopover />
+            </Stack>
+        </>
+      );
 
     return (
-        <>
-            <header className="header">
-                <nav className="nav containerA">
-                    <a href='#' className="nav__logo">XCOMPANY</a>
-                    <div className="nav__menu" id="nav-menu">
-                        <ul className="nav__list">
-                            <li className="nav__item">
-                                <a href="#" className="nav__link">Home</a>
-                            </li>
-                            <li className="nav__item">
-                                <a href="#" className="nav__link">About</a>
-                            </li>
-                            <li className="nav__item">
-                                <a href="#" className="nav__link">Contact</a>
-                            </li>
-                        </ul>
-                        <button className="nav__close" id="nav-close" onClick={() => {setIsShowMenu(false)}}>
-                            <box-icon name='x'></box-icon>
-                        </button>
-                    </div>
-
-                    <button className="nav__toggle" id="nav-toggle" onClick={() => {setIsShowMenu(!isShowMenu)}}>
-                        <box-icon name='grid-alt'></box-icon>
-                    </button>
-                </nav>
-            </header> 
-        </>
+        <AppBar sx={{
+            boxShadow: 'none',
+            height: HEADER.H_MOBILE,
+            backgroundColor: theme.palette.background.navBarGrey,
+            transition: 4,
+            // opacity: 0.8,
+            zIndex: 1000,
+            ...(upLg && {
+                width: `calc(100% - ${NAV.WIDTH + 1}px)`,
+                height: HEADER.H_DESKTOP,
+            }),
+        }}>
+            <Toolbar sx={{ height: 1, px: {lg: 5} }}>
+                {renderContent}
+            </Toolbar>
+        </AppBar>
     )
 }
 

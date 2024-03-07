@@ -1,65 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-    --header-height: 3.5rem;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-    --first-color: hsl(38, 69%, 59%);
-    --text-color: hsl(38, 8%, 8%);
-    --body-font: 'Space Grotesk', sans-serif;
-    --biggest-font-size: 2.375rem;
-    --normal-font-size: .938rem;
-    --smaller-font-size: .75rem;
-}
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #fff;
 
-.container {
-    max-width: 1024px;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-}
-
-.main {
-    overflow: hidden;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    font-family: var(--body-font);
-    font-size: var(--normal-font-size);
-    font-weight: 500;
-    color: var(--text-color);
+  border: none;
+  margin: 0;
 }
 
-ul {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-@media screen and (min-width: 1048px) {
-    .container {
-      margin-left: auto;
-      margin-right: auto;
-    }
-}
-
-/* For 2K resolutions (2048 x 1152, 2048 x 1536) */
-@media screen and (min-width: 2048px) {
-    body {
-    zoom: 1.7;
-    }
-}
-
-/* For 4K resolutions (3840 x 2160, 4096 x 2160) */
-@media screen and (min-width: 3840px) {
-    body {
-        zoom: 3.1;
-    }
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+  }
 }
